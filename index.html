@@ -1,148 +1,138 @@
-<html><head><base href="https://websim.dev/modern-cabin-reservation/">
-<title>Reservas de Cabinas SPA</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-<style>
-  :root {
-    --primary-color: #4a90e2;
-    --secondary-color: #f39c12;
-    --background-color: #f5f7fa;
-    --text-color: #34495e;
-    --light-text-color: #7f8c8d;
-    --occupied-color: #e74c3c;
-    --available-color: #2ecc71;
-  }
-
-  * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-  }
-
-  body {
-    font-family: 'Poppins', sans-serif;
-    background-color: var(--background-color);
-    color: var(--text-color);
-    line-height: 1.6;
-    padding: 20px;
-  }
-
-  .container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px;
-    background-color: white;
-    border-radius: 10px;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-  }
-
-  h1 {
-    color: var(--primary-color);
-    text-align: center;
-    margin-bottom: 30px;
-    font-weight: 600;
-  }
-
-  form {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 20px;
-    margin-bottom: 40px;
-  }
-
-  label {
-    display: block;
-    margin-bottom: 5px;
-    color: var(--light-text-color);
-    font-weight: 300;
-  }
-
-  input, select, textarea {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    font-family: 'Poppins', sans-serif;
-  }
-
-  button {
-    background-color: var(--primary-color);
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    font-weight: 600;
-  }
-
-  button:hover {
-    background-color: #3498db;
-  }
-
-  .reservation-table {
-    width: 100%;
-    overflow-x: auto;
-  }
-
-  table {
-    width: 100%;
-    border-collapse: separate;
-    border-spacing: 0 10px;
-  }
-
-  th, td {
-    text-align: left;
-    padding: 15px;
-    background-color: white;
-  }
-
-  th {
-    background-color: var(--primary-color);
-    color: white;
-    font-weight: 600;
-  }
-
-  td:first-child {
-    border-top-left-radius: 5px;
-    border-bottom-left-radius: 5px;
-  }
-
-  td:last-child {
-    border-top-right-radius: 5px;
-    border-bottom-right-radius: 5px;
-  }
-
-  .reservation-slot {
-    height: 30px;
-    border-radius: 15px;
-    position: relative;
-    cursor: pointer;
-    transition: transform 0.3s ease;
-  }
-
-  .reservation-slot:hover {
-    transform: scale(1.05);
-  }
-
-  .tooltip {
-    display: none;
-    position: absolute;
-    background-color: rgba(44, 62, 80, 0.9);
-    color: white;
-    padding: 10px;
-    border-radius: 5px;
-    z-index: 1;
-    width: 200px;
-    pointer-events: none;
-  }
-
-  @media (max-width: 768px) {
-    form {
-      grid-template-columns: 1fr;
+<html>
+<head>
+  <base href="https://websim.dev/modern-cabin-reservation/">
+  <title>Reservas de Cabinas SPA</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary-color: #4a90e2;
+      --secondary-color: #f39c12;
+      --background-color: #f5f7fa;
+      --text-color: #34495e;
+      --light-text-color: #7f8c8d;
+      --occupied-color: #e74c3c;
+      --available-color: #2ecc71;
     }
-  }
-</style>
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: var(--background-color);
+      color: var(--text-color);
+      line-height: 1.6;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: white;
+      border-radius: 10px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      color: var(--primary-color);
+      text-align: center;
+      margin-bottom: 30px;
+      font-weight: 600;
+    }
+
+    form {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+      margin-bottom: 40px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 5px;
+      color: var(--light-text-color);
+      font-weight: 300;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    button {
+      background-color: var(--primary-color);
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      font-weight: 600;
+    }
+
+    button:hover {
+      background-color: #3498db;
+    }
+
+    .reservation-table {
+      width: 100%;
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0 10px;
+    }
+
+    th, td {
+      text-align: left;
+      padding: 15px;
+      background-color: white;
+    }
+
+    th {
+      background-color: var(--primary-color);
+      color: white;
+      font-weight: 600;
+    }
+
+    td:first-child {
+      border-top-left-radius: 5px;
+      border-bottom-left-radius: 5px;
+    }
+
+    td:last-child {
+      border-top-right-radius: 5px;
+      border-bottom-right-radius: 5px;
+    }
+
+    .reservation-slot {
+      height: 30px;
+      border-radius: 15px;
+      position: relative;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+
+    .reservation-slot:hover {
+      transform: scale(1.05);
+    }
+
+    @media (max-width: 768px) {
+      form {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
 </head>
 <body>
 <div class="container">
@@ -237,8 +227,6 @@
       </tbody>
     </table>
   </div>
-
-  <div id="tooltip" class="tooltip"></div>
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
@@ -251,7 +239,7 @@ const cabinNames = [
 
 function initializeTable() {
   const tbody = document.querySelector('#reservationTable tbody');
-  for (let i = 0; i < 10; i++) {
+  for (let i = 0; i < cabinNames.length; i++) {
     const row = document.createElement('tr');
     row.innerHTML = `<td>${cabinNames[i]}</td>${'<td></td>'.repeat(12)}`;
     tbody.appendChild(row);
@@ -278,65 +266,37 @@ function addReservation(event) {
 function updateTable() {
   const tbody = document.querySelector('#reservationTable tbody');
   tbody.innerHTML = '';
-  for (let i = 0; i < 10; i++) {
+  for (let i = 0; i < cabinNames.length; i++) {
     const row = document.createElement('tr');
     row.innerHTML = `<td>${cabinNames[i]}</td>${'<td></td>'.repeat(12)}`;
     tbody.appendChild(row);
   }
-
-  reservations.forEach(reservation => {
-    const row = tbody.children[reservation.cabin - 1];
-    const startTime = moment(reservation.time, 'HH:mm');
-    const endTime = moment(startTime).add(reservation.duration, 'minutes');
-    const startCol = startTime.hour() - 7;
-    const endCol = Math.ceil(endTime.hour() - 7 + (endTime.minutes() / 60));
-    const duration = endCol - startCol;
-
-    const cell = row.children[startCol];
-    const reservationSlot = document.createElement('div');
-    reservationSlot.classList.add('reservation-slot');
-    reservationSlot.style.width = `${duration * 100}%`;
-    reservationSlot.style.backgroundColor = getRandomColor();
-    reservationSlot.setAttribute('data-reservation', JSON.stringify(reservation));
-    cell.appendChild(reservationSlot);
+  reservations.forEach((reservation) => {
+    const rowIndex = reservation.cabin - 1;
+    const timeIndex = parseInt(reservation.time.split(':')[0]) - 8;
+    const cell = tbody.children[rowIndex].children[timeIndex + 1];
+    cell.textContent = reservation.name;
+    cell.classList.add('reservation-slot');
+    cell.style.backgroundColor = reservation.pax > 1 ? 'var(--occupied-color)' : 'var(--available-color)';
+    
+    // Add click event to show reservation details
+    cell.addEventListener('click', () => {
+      alert(`
+        Cabin: ${cabinNames[rowIndex]}
+        Name: ${reservation.name}
+        Service: ${reservation.service}
+        Duration: ${reservation.duration} minutes
+        Pax: ${reservation.pax}
+        Time: ${reservation.time}
+        Therapist: ${reservation.therapist}
+        Notes: ${reservation.notes}
+      `);
+    });
   });
 }
 
-function getRandomColor() {
-  const hue = Math.floor(Math.random() * 360);
-  return `hsl(${hue}, 70%, 60%)`;
-}
-
-function showTooltip(event) {
-  const target = event.target.closest('.reservation-slot');
-  if (target) {
-    const reservation = JSON.parse(target.getAttribute('data-reservation'));
-    const tooltip = document.getElementById('tooltip');
-    tooltip.innerHTML = `
-      <strong>${reservation.name}</strong><br>
-      Service: ${reservation.service}<br>
-      Duration: ${reservation.duration} minutes<br>
-      Pax: ${reservation.pax}<br>
-      Time: ${reservation.time}<br>
-      Therapist: ${reservation.therapist}<br>
-      Notes: ${reservation.notes}
-    `;
-    tooltip.style.display = 'block';
-    tooltip.style.left = `${event.pageX + 10}px`;
-    tooltip.style.top = `${event.pageY + 10}px`;
-  }
-}
-
-function hideTooltip() {
-  document.getElementById('tooltip').style.display = 'none';
-}
-
-document.addEventListener('DOMContentLoaded', () => {
-  initializeTable();
-  document.getElementById('reservationForm').addEventListener('submit', addReservation);
-  document.getElementById('reservationTable').addEventListener('mouseover', showTooltip);
-  document.getElementById('reservationTable').addEventListener('mouseout', hideTooltip);
-});
+document.getElementById('reservationForm').addEventListener('submit', addReservation);
+initializeTable();
 </script>
 </body>
 </html>
