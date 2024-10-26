@@ -47,7 +47,7 @@
 
     form {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
       gap: 20px;
       margin-bottom: 40px;
     }
@@ -61,16 +61,17 @@
 
     input, select, textarea {
       width: 100%;
-      padding: 10px;
+      padding: 8px;
       border: 1px solid #ddd;
       border-radius: 5px;
       font-family: 'Poppins', sans-serif;
+      font-size: 14px;
     }
 
     button {
       background-color: var(--primary-color);
       color: white;
-      padding: 10px 20px;
+      padding: 8px 16px;
       border: none;
       border-radius: 5px;
       cursor: pointer;
@@ -95,7 +96,7 @@
 
     th, td {
       text-align: left;
-      padding: 15px;
+      padding: 10px;
       background-color: white;
     }
 
@@ -117,14 +118,33 @@
 
     .reservation-slot {
       height: 30px;
-      border-radius: 15px;
+      border-radius: 5px;
       position: relative;
       cursor: pointer;
       transition: transform 0.3s ease;
+      overflow: hidden; /* Ensures tooltip is contained */
     }
 
     .reservation-slot:hover {
       transform: scale(1.05);
+    }
+
+    .tooltip {
+      position: absolute;
+      background-color: #333;
+      color: white;
+      padding: 5px;
+      border-radius: 5px;
+      visibility: hidden;
+      opacity: 0;
+      transition: visibility 0s, opacity 0.5s linear;
+      font-size: 12px;
+      z-index: 10;
+    }
+
+    .reservation-slot:hover .tooltip {
+      visibility: visible;
+      opacity: 1;
     }
 
     @media (max-width: 768px) {
@@ -136,7 +156,7 @@
 </head>
 <body>
 <div class="container">
-  <h1>Reservas de Cabinas </h1>
+  <h1>Reservas de Cabinas</h1>
 
   <form id="reservationForm">
     <div>
@@ -265,21 +285,34 @@ function addReservation(event) {
 
 function updateTable() {
   const tbody = document.querySelector('#reservationTable tbody');
-  tbody.innerHTML = '';
-  for (let i = 0; i < cabinNames.length; i++) {
-    const row = document.createElement('tr');
-    row.innerHTML = `<td>${cabinNames[i]}</td>${'<td></td>'.repeat(12)}`;
-    tbody.appendChild(row);
-  }
-  reservations.forEach((reservation) => {
-    const rowIndex = reservation.cabin - 1;
-    const timeIndex = parseInt(reservation.time.split(':')[0]) - 8;
+  tbody.innerHTML = ''; // Clear previous entries
+  initializeTable(); // Reinitialize table structure
+
+  reservations.forEach(reservation => {
+    const rowIndex = parseInt(reservation.cabin) - 1;
+    const timeIndex = (new Date(`1970-01-01T${reservation.time}:00`).getHours() - 8);
     const cell = tbody.children[rowIndex].children[timeIndex + 1];
+
     cell.textContent = reservation.name;
     cell.classList.add('reservation-slot');
     cell.style.backgroundColor = reservation.pax > 1 ? 'var(--occupied-color)' : 'var(--available-color)';
     
-    // Add click event to show reservation details
+    // Add tooltip for displaying reservation details
+    const tooltip = document.createElement('div');
+    tooltip.className = 'tooltip';
+    tooltip.innerHTML = `
+      Cabin: ${cabinNames[rowIndex]}<br>
+      Name: ${reservation.name}<br>
+      Service: ${reservation.service}<br>
+      Duration: ${reservation.duration} minutes<br>
+      Pax: ${reservation.pax}<br>
+      Time: ${reservation.time}<br>
+      Therapist: ${reservation.therapist}<br>
+      Notes: ${reservation.notes}
+    `;
+    cell.appendChild(tooltip);
+
+    // Add click event to show reservation details in alert
     cell.addEventListener('click', () => {
       alert(`
         Cabin: ${cabinNames[rowIndex]}
